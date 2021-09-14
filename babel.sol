@@ -1,11 +1,15 @@
 pragma solidity ^0.8.4;
 
+// This contract is based in the story of Jorge Luis Borges: "The Library of Babel"
+// Author: Fernando Molina
+// Twitter: @fergmolina
+// Github: https://github.com/fergmolina/library-of-ethbel
+
 contract Babel {
     
     uint lengthOfTitle = 25;
     uint lengthOfPage = 1000-lengthOfTitle;
     
-
     //29 output letters: alphabet plus comma, space, and period
     //in wall: 4
     //in shelf: 5
@@ -26,7 +30,7 @@ contract Babel {
 
 
     function search(string memory _str) external view returns (Result memory){
-        //_str = toLower(_str);
+
         uint wall = rand(4,block.difficulty+1);
         uint shelf = rand(5,block.difficulty+2);
         uint volume = rand(32,block.difficulty+3);
@@ -59,7 +63,6 @@ contract Babel {
             title = string(abi.encodePacked(title, digs[randPadding]));
         }
 
-        //bytes memory header = abi.encodePacked(wall, shelf, volume, page, bytes(title)); 
         string memory text = string(abi.encodePacked(frontPadding, _str, backPadding));
         bytes memory textSeed = abi.encodePacked(_str);
         Result memory result = Result(wall, shelf, volume, page, title, text, textSeed);
@@ -68,13 +71,8 @@ contract Babel {
         
     }
 
-
-
-
-
-
     function getRandomPage() external view returns (Result memory){
-        //_str = toLower(_str);
+
         uint wall = rand(4,block.difficulty+1);
         uint shelf = rand(5,block.difficulty+2);
         uint volume = rand(32,block.difficulty+3);
@@ -156,7 +154,6 @@ contract Babel {
             title = string(abi.encodePacked(title, digs[randPadding]));
         }
 
-        //string memory text = string(abi.encodePacked(frontPadding, string(_randomSeed), backPadding));
         Result memory result = Result(_wall, _shelf, _volume, _page, title, string(abi.encodePacked(frontPadding, string(_randomSeed), backPadding)), _randomSeed);
 
         return (result);
@@ -167,5 +164,10 @@ contract Babel {
         return uint256(keccak256(abi.encodePacked(_number, _nonce))) % _number;
     }
 
+    function donate() payable public {
+        require(msg.value>0,"You didn't send any donation");
+        address payable borges = payable(0x923F3E494B10DfBAbEA846aB6346A68a10CDe95E);
+        borges.transfer(msg.value);
+    }
 
 }
