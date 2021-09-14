@@ -8,7 +8,7 @@ pragma solidity ^0.8.4;
 contract Babel {
     
     uint lengthOfTitle = 25;
-    uint lengthOfPage = 1000-lengthOfTitle;
+    uint lengthOfPage = (80*40)-lengthOfTitle;
     
     //29 output letters: alphabet plus comma, space, and period
     //in wall: 4
