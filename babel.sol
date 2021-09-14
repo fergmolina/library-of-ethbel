@@ -15,7 +15,7 @@ contract Babel {
     //in shelf: 5
     //in volumes: 32
     //pages: 410
-    //letters per page: 1000
+    //letters per page: 80*40
     //titles have 25 char
 
     struct Result {
